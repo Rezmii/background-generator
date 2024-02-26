@@ -2,20 +2,24 @@ const firstColorInput = document.querySelector("#color1");
 const secondColorInput = document.querySelector("#color2");
 const colorDisplay = document.querySelector(".colorDisplay");
 const copyColor = document.querySelector(".copyColor");
+const bodyElement = document.querySelector("body");
 let firstColor = firstColorInput.value;
 let secondColor = secondColorInput.value;
 
+setBackground(firstColor, secondColor);
 displayColor(firstColor, secondColor);
 displayCopy(firstColor, secondColor);
 
 firstColorInput.addEventListener("input", () => {
   firstColor = firstColorInput.value;
+  setBackground(firstColor, secondColor);
   displayColor(firstColor, secondColor);
   displayCopy(firstColor, secondColor);
 });
 
 secondColorInput.addEventListener("input", () => {
   secondColor = secondColorInput.value;
+  setBackground(firstColor, secondColor);
   displayColor(firstColor, secondColor);
   displayCopy(firstColor, secondColor);
 });
@@ -32,8 +36,14 @@ function displayColor(first, second) {
 function displayCopy(first, second) {
   let color1 = hexToRgb(first.slice(1));
   let color2 = hexToRgb(second.slice(1));
-  let html = `linear-gradient(to right, rgb(${color1}), rgb(${color2}))`;
+  let html = `linear-gradient(90deg, rgb(${color1}), rgb(${color2}));`;
   copyColor.innerHTML = html;
+}
+
+function setBackground(first, second) {
+  let color1 = hexToRgb(first.slice(1));
+  let color2 = hexToRgb(second.slice(1));
+  document.body.style.background = `linear-gradient(90deg, rgb(${color1}), rgb(${color2}))`;
 }
 
 function hexToRgb(hex) {
